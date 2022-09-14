@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://cdn.socket.io/4.5.0/socket.io.min.js"
+      integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <script>
+      var socket = io.connect();
+
+      // 정보를 전송하는 코드 emit()
+      // socket.emit("이벤트명", "전송하고자 하는 데이터");
+      socket.emit("welcome", "(클라이언트) 반가워");
+
+      socket.on("welcome from server", (data) => {
+        // 이건 브라우저에서 보임.
+        console.log(data);
+        console.log(data.name, data.msg);
+      });
+    </script>
+  </body>
+</html>

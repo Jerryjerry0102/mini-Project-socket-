@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://cdn.socket.io/4.5.0/socket.io.min.js"
+      integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.min.js"
+      integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <h2>Hello Jerrywelt</h2>
+    <button type="button" onclick="hello();">hello</button>
+    <button type="button" onclick="study();">study</button>
+    <button type="button" onclick="bye();">bye</button>
+    <div id="comment"></div>
+  </body>
+  <script>
+    var socket = io.connect();
+    function hello() {
+      socket.emit("hello", "client: hello");
+
+      socket.on("hello", (hello) => {
+        console.log(hello);
+        $("div").html(hello);
+        // document.getElementById("comment").innterText = hello;
+      });
+    }
+    function study() {
+      socket.emit("study", "client: study");
+
+      socket.on("study", (study) => {
+        console.log(study);
+        $("div").html(study);
+      });
+    }
+    function bye() {
+      socket.emit("bye", "client: bye");
+
+      socket.on("bye", (bye) => {
+        console.log(bye);
+        $("div").html(bye);
+      });
+    }
+  </script>
+</html>
