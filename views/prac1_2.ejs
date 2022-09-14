@@ -21,11 +21,13 @@
       let socket = io.connect();
       function sendMsg(msg) {
         socket.emit("send", msg);
-        socket.on("response", (data) => {
-          let content = document.getElementById("content");
-          content.innerText = data;
-        });
       }
+      socket.on("response", (data) => {
+        let content = document.getElementById("content");
+        content.innerText = data;
+        console.log(data);
+      });
+      // 반복되는 함수 안에 이벤트를 넣어주지 말자
     </script>
   </body>
 </html>

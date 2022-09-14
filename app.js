@@ -12,6 +12,10 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// 사진, 업로드
+app.use("/static", express.static("static"));
+app.use("/uploads", express.static("uploads"));
+
 app.get("/", (req, res) => {
   res.render("index");
 });
@@ -25,9 +29,12 @@ app.get("/prac1_2", (req, res) => {
   res.render("prac1_2");
 });
 
-// pra2: 채팅장 ui 만들기 //
+// mini-project- pra2: 채팅장 ui 만들기 //
 app.get("/chat", (req, res) => {
   res.render("chat");
+});
+app.get("/chat2", (req, res) => {
+  res.render("chat2");
 });
 
 // 달라지는 부분2 //
@@ -94,7 +101,7 @@ io.on("connection", function (socket) {
     socket.emit("bye", "server: 잘가");
   });
 
-  // prac1_2 더 나은 버전 //
+  // prac1_2 더 나은 버전 // 한 번 더 해보자
   let comment = {
     hello: "안녕하세요",
     study: "공부합시다",
