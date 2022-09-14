@@ -36,6 +36,9 @@ app.get("/chat", (req, res) => {
 app.get("/chat2", (req, res) => {
   res.render("chat2");
 });
+app.get("/chat3", (req, res) => {
+  res.render("chat3");
+});
 
 // 달라지는 부분2 //
 // on도 이벤트인데 client가 var socket = io.connect(); 처럼 연결하려고 할 때 이벤트발생

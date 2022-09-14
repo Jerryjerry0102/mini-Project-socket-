@@ -1,0 +1,128 @@
+:root {
+  --main-color: #d7cdbf;
+}
+.container {
+  min-width: 500px;
+  max-width: 1000px !important;
+  margin: 20px 0px 20px 0px;
+  font-family: sans-serif;
+  letter-spacing: 0.4px;
+}
+/* header */
+.header {
+  border: 1px solid #ccc;
+  height: 65px;
+  background-color: var(--main-color);
+  display: flex;
+  padding: 10px 20px;
+  align-items: center;
+}
+.header-img {
+  width: 40px;
+}
+img {
+  border-radius: 50%;
+  width: 100%;
+}
+.active {
+  margin-left: 15px;
+  color: #fff;
+}
+.active div:first-child {
+  font-size: 20px;
+}
+.active div:last-child {
+  font-size: 10px;
+  position: relative;
+  bottom: 2px;
+}
+.header-icons {
+  margin-left: auto;
+  /* flex-grow: 1;
+  text-align: end; */
+}
+.header-icons .fa {
+  color: #fff;
+  cursor: pointer;
+  margin: 10px;
+}
+
+/* chat-main */
+.chat-main {
+  padding: 20px 30px;
+  border: 1px solid #ccc;
+  height: 516px;
+  overflow-y: auto;
+}
+/* received-chats */
+.chats {
+  display: flex;
+}
+.chats-img {
+  width: 30px;
+}
+.received-chats-msg {
+  padding-left: 10px;
+  width: 57%;
+}
+.chats-msg div {
+  border-radius: 10px;
+  color: #646464;
+  font-size: 14px;
+  padding: 5px 11px;
+}
+.received-chats-msg div {
+  background-color: #efefef;
+}
+.time {
+  display: block;
+  color: #777;
+  font-size: 12px;
+  margin: 7px 2px 0 2px;
+}
+/* outgoing-chats */
+.outgoing-chats-msg {
+  width: 47%;
+  margin-left: auto;
+  padding-right: 10px;
+}
+.outgoing-chats-msg div {
+  background-color: var(--main-color);
+}
+.outgoing-chats-msg .time {
+  text-align: end;
+}
+/* chat-bottom */
+.chat-bottom {
+  height: 65px;
+  background-color: var(--main-color);
+  display: flex;
+  padding: 10px 20px;
+}
+.bottom-icons {
+  width: 40%;
+}
+.bottom-icons .fa {
+  color: #fff;
+  padding: 5px;
+}
+.chat-input {
+  margin-left: auto;
+  text-align: end;
+  width: 61%;
+  background-color: #fff;
+  border: none;
+  border-radius: 20px;
+}
+.chat-input input {
+  border: none;
+  border-radius: 20px;
+  width: 100%;
+  padding: 10px;
+}
+.chat-input .fa {
+  color: var(--main-color);
+  position: relative;
+  top: -35px;
+  right: 15px;
+}

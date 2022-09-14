@@ -61,7 +61,7 @@ img {
 }
 .msg-inbox {
   border: 1px solid #ccc;
-  overflow: hidden;
+  /* overflow: hidden; */
   padding-bottom: 30px;
 }
 .chats {
