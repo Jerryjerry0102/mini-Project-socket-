@@ -1,13 +1,17 @@
 :root {
   --main-color: #d7cdbf;
 }
+.d-none {
+  display: none;
+}
 .container {
   min-width: 500px;
-  max-width: 1000px !important;
+  max-width: 500px !important;
   margin: 20px 0px 20px 0px;
   font-family: sans-serif;
   letter-spacing: 0.4px;
 }
+
 /* header */
 .header {
   border: 1px solid #ccc;
@@ -51,12 +55,20 @@ img {
 .chat-main {
   padding: 20px 30px;
   border: 1px solid #ccc;
-  height: 516px;
+  height: 550px;
   overflow-y: auto;
+}
+/* notice-chats */
+.notice-chats {
+  color: gray;
+  text-align: center;
+  font-size: 12px;
+  margin-bottom: 10px;
 }
 /* received-chats */
 .chats {
   display: flex;
+  margin: 26px 0px 20px 0px;
 }
 .chats-img {
   width: 30px;
@@ -65,64 +77,79 @@ img {
   padding-left: 10px;
   width: 57%;
 }
-.chats-msg div {
+.chats-name {
+  color: #6e665f;
+  padding: 0px 0px 3px 3px;
+  font-size: 13px;
+}
+.chats-msg .text {
   border-radius: 10px;
   color: #646464;
   font-size: 14px;
-  padding: 5px 11px;
+  padding: 7px 11px;
 }
-.received-chats-msg div {
+.received-chats-msg .text {
   background-color: #efefef;
 }
 .time {
   display: block;
   color: #777;
   font-size: 12px;
-  margin: 7px 2px 0 2px;
+  margin: 5px 3px 0 3px;
 }
 /* outgoing-chats */
+.outgoing-chats {
+  margin: 26px 0px 20px 0px;
+}
 .outgoing-chats-msg {
   width: 47%;
   margin-left: auto;
   padding-right: 10px;
 }
-.outgoing-chats-msg div {
+.outgoing-chats-msg .text {
   background-color: var(--main-color);
 }
 .outgoing-chats-msg .time {
   text-align: end;
 }
+
 /* chat-bottom */
 .chat-bottom {
   height: 65px;
   background-color: var(--main-color);
   display: flex;
   padding: 10px 20px;
+  align-items: center;
 }
 .bottom-icons {
-  width: 40%;
+  width: 30%;
 }
 .bottom-icons .fa {
   color: #fff;
   padding: 5px;
 }
 .chat-input {
+  display: flex;
   margin-left: auto;
-  text-align: end;
-  width: 61%;
+  width: 65%;
   background-color: #fff;
-  border: none;
   border-radius: 20px;
+  margin-left: auto;
 }
 .chat-input input {
   border: none;
   border-radius: 20px;
-  width: 100%;
-  padding: 10px;
+  width: 87%;
+  height: 38px;
+  /* outline-color: var(--main-color); */
+  outline: none;
+  text-indent: 12px;
+  font-size: 15px;
+  color: #646464;
 }
 .chat-input .fa {
   color: var(--main-color);
   position: relative;
-  top: -35px;
-  right: 15px;
+  top: 12px;
+  left: 5px;
 }

@@ -36,7 +36,7 @@ app.get("/chat", (req, res) => {
 app.get("/chat2", (req, res) => {
   res.render("chat2");
 });
-app.get("/chat3", (req, res) => {
+app.get("/jerry/chat", (req, res) => {
   res.render("chat3");
 });
 
@@ -113,6 +113,16 @@ io.on("connection", function (socket) {
   socket.on("send", function (data) {
     console.log("client:", data);
     socket.emit("response", data + ": " + comment[data]);
+  });
+
+  // mini-project-socket-
+  //! socket에 client가 접근할 때마다 cleint에게 고유의 socket객체게 생기고 그 안에 고유의 id가 있다.
+  io.emit("chat-notice", socket.id);
+  //!
+  socket.on("sendMsg", (msg) => {
+    // msg 받아서 전체 client한테 전송
+    io.emit("sendAll", msg);
+    console.log(msg);
   });
 });
 //

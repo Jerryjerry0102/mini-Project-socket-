@@ -7,6 +7,12 @@
     <title>Document</title>
     <!-- css file -->
     <link rel="stylesheet" href="../static/css/style2.css" />
+    <!-- jquery -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.min.js"
+      integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+      crossorigin="anonymous"
+    ></script>
     <!-- bootstrap cdn -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
@@ -32,7 +38,14 @@
     ></script>
   </head>
   <body>
-    <div class="container">
+    <!-- 1 -->
+    <div class="contatiner">
+      <div>Welcom Jerry Chat</div>
+      <input type="text" name="name" />
+      <button type="button" onclick="openChat();">입장</button>
+    </div>
+    <!-- 2 -->
+    <div class="container d-none">
       <!-- chat-header -->
       <div class="header">
         <div class="header-img">
@@ -50,18 +63,21 @@
       </div>
       <!-- chat-main -->
       <div class="chat-main">
+        <!-- notice -->
+        <!-- <div class="notice-chats">박재희님이 입장했습니다</div> -->
         <!-- received chats -->
-        <div class="chats received-chats">
+        <!-- <div class="chats received-chats">
           <div class="chats-img received-chats-img">
             <img src="../static/img/odung.jpg" />
           </div>
           <div class="chats-msg received-chats-msg">
-            <div>Hi! This is message from Tom Hi! This is message from Tom</div>
+            <div class="chats-name">박재희</div>
+            <div class="text">Hi! This is message from Tom Hi! This is message from Tom</div>
             <span class="time">11:01 PM | September 15</span>
           </div>
-        </div>
+        </div> -->
         <!-- outgoing chats -->
-        <div class="chats outgoing-chats">
+        <!-- <div class="chats outgoing-chats">
           <div class="chats-msg outgoing-chats-msg">
             <div>Hi! This is message from me Hi! This is message from me</div>
             <span class="time">11:01 PM | September 15</span>
@@ -69,28 +85,8 @@
           <div class="chats-img outgoing-chats-img">
             <img src="../static/img/odung.jpg" />
           </div>
-        </div>
-
-        <!-- received chats -->
-        <div class="chats received-chats">
-          <div class="chats-img received-chats-img">
-            <img src="../static/img/odung.jpg" />
-          </div>
-          <div class="chats-msg received-chats-msg">
-            <div>Hi! This is message from Tom Hi! This is message from Tom</div>
-            <span class="time">11:01 PM | September 15</span>
-          </div>
-        </div>
-        <!-- outgoing chats -->
-        <div class="chats outgoing-chats">
-          <div class="chats-msg outgoing-chats-msg">
-            <div>Hi! This is message from me Hi! This is message from me</div>
-            <span class="time">11:01 PM | September 15</span>
-          </div>
-          <div class="chats-img outgoing-chats-img">
-            <img src="../static/img/odung.jpg" />
-          </div>
-        </div>
+        </div> -->
+        <!--  -->
       </div>
       <!-- chat-bottom -->
       <div class="chat-bottom">
@@ -102,11 +98,59 @@
         </div>
         <div class="chat-input">
           <input type="text" placeholder="write message..." />
-          <span class="input-append">
-            <i class="fa fa-paper-plane"></i>
-          </span>
+          <i onclick="sendMsg();" class="fa fa-paper-plane"></i>
         </div>
       </div>
     </div>
+    <script>
+      var socket = io.connect();
+
+      function openChat() {
+        socket.emit("Username");
+      }
+
+      socket.on("chat-notice", (id) => {
+        $(".chat-main").append(
+          `<div class="notice-chats">${id}님이 입장했습니다</div>`
+        );
+      });
+
+      function sendMsg() {
+        // 1. input에 있는 value를 가져와야 함
+        let msg = $("input").val();
+        socket.emit("sendMsg", msg);
+      }
+
+      socket.on("sendAll", (msg) => {
+        let myMsg = $("input").val();
+        if (myMsg == msg) {
+          $(".chat-main").append(
+            `<div class="chats outgoing-chats">
+            <div class="chats-msg outgoing-chats-msg">
+              <div class="text">${msg}</div>
+              <span class="time">11:01 PM | September 15</span>
+            </div>
+            <div class="chats-img outgoing-chats-img">
+              <img src="../static/img/odung.jpg" />
+            </div>
+          </div>`
+          );
+        } else {
+          $(".chat-main").append(
+            `<div class="chats received-chats">
+              <div class="chats-img received-chats-img">
+                <img src="../static/img/odung.jpg" />
+              </div>
+              <div class="chats-msg received-chats-msg">
+                <div class="chats-name">박재희</div>
+                <div class="text">${msg}</div>
+                <span class="time">11:01 PM | September 15</span>
+              </div>
+            </div>`
+          );
+        }
+      });
+      //emit, on
+    </script>
   </body>
 </html>
