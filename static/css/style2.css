@@ -1,6 +1,7 @@
 :root {
   --main-color: #d7cdbf;
 }
+/* bootstrap 쓸 때는 안 써줘도 됨 */
 .d-none {
   display: none;
 }

@@ -40,6 +40,9 @@ app.get("/jerry/chat", (req, res) => {
   res.render("chat3");
 });
 
+let client_list = {};
+// {socketId: nickname, ...}
+
 // 달라지는 부분2 //
 // on도 이벤트인데 client가 var socket = io.connect(); 처럼 연결하려고 할 때 이벤트발생
 // 서버와 client가 1대 1 독대가 아니다.
@@ -117,8 +120,25 @@ io.on("connection", function (socket) {
 
   // mini-project-socket-
   //! socket에 client가 접근할 때마다 cleint에게 고유의 socket객체게 생기고 그 안에 고유의 id가 있다.
-  io.emit("chat-notice", socket.id);
+  // io.emit("chat-notice", socket.id);
   //!
+  // nickname 정하고 입장
+  socket.on("setNickname", (nick) => {
+    // client_list라는 딕션너리에서 value값만 나오는 배열이 나오게 됨
+    // 어떤 배열에서 내가 원하는 값의 존재여부를 확인하는 함수: arr.indexOf()
+    // [1,2,3,4,5,6].indexOf(8) = -1 없으면 -1나옴
+    // [1,2,3,4,5,6].indexOf(5) = 4 있으면 해당 값의 index가 나옴
+    if (Object.values(client_list).indexOf(nick) > -1) {
+      socket.emit("err", "중복되는 닉네임입니다.");
+    } else {
+    }
+    // 사람 한 명 들어오면 key와 value를 추가하겠다는 것
+    client_list[socket.id] = nick;
+    console.log(client_list);
+    io.emit("chat-notice", nick);
+    socket.emit("entrySuccess", "입장 성공");
+  });
+
   socket.on("sendMsg", (msg) => {
     // msg 받아서 전체 client한테 전송
     io.emit("sendAll", msg);

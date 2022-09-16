@@ -38,14 +38,14 @@
     ></script>
   </head>
   <body>
-    <!-- 1 -->
-    <div class="contatiner">
+    <!-- 1. nickName set -->
+    <div id="startPage">
       <div>Welcom Jerry Chat</div>
-      <input type="text" name="name" />
-      <button type="button" onclick="openChat();">입장</button>
+      <input type="text" id="nickname" name="name" />
+      <button type="button" id="openChatBtn" onclick="openChat();">입장</button>
     </div>
     <!-- 2 -->
-    <div class="container d-none">
+    <div class="container d-none" id="chatPage">
       <!-- chat-header -->
       <div class="header">
         <div class="header-img">
@@ -106,26 +106,33 @@
       var socket = io.connect();
 
       function openChat() {
-        socket.emit("Username");
+        let nickname = $("#nickname").val();
+        console.log(nickname);
+        socket.emit("setNickname".nickname);
       }
 
-      socket.on("chat-notice", (id) => {
-        $(".chat-main").append(
-          `<div class="notice-chats">${id}님이 입장했습니다</div>`
-        );
+      socket.on("err", (errMsg) => {
+        alert(errMsg);
       });
 
-      function sendMsg() {
-        // 1. input에 있는 value를 가져와야 함
-        let msg = $("input").val();
-        socket.emit("sendMsg", msg);
-      }
+      socket.on("entrySuccess", () => {
+        $("#chatPage").removeClass("d-none");
+        // $("#nickname, #openChatBtn".attr("disabled", true));
+        // input에 disabled가 추가됨
+      });
 
-      socket.on("sendAll", (msg) => {
-        let myMsg = $("input").val();
-        if (myMsg == msg) {
+      // 입장이 성공하는 순간 딱 한 번만 socketEvent 실행시킬 거라서 이벤트 넣어도 됨.
+      function socketEvent() {
+        socket.on("chat-notice", (nick) => {
           $(".chat-main").append(
-            `<div class="chats outgoing-chats">
+            `<div class="notice-chats">${nick}님이 입장했습니다</div>`
+          );
+        });
+        socket.on("sendAll", (msg) => {
+          let myMsg = $("input").val();
+          if (myMsg == msg) {
+            $(".chat-main").append(
+              `<div class="chats outgoing-chats">
             <div class="chats-msg outgoing-chats-msg">
               <div class="text">${msg}</div>
               <span class="time">11:01 PM | September 15</span>
@@ -134,10 +141,10 @@
               <img src="../static/img/odung.jpg" />
             </div>
           </div>`
-          );
-        } else {
-          $(".chat-main").append(
-            `<div class="chats received-chats">
+            );
+          } else {
+            $(".chat-main").append(
+              `<div class="chats received-chats">
               <div class="chats-img received-chats-img">
                 <img src="../static/img/odung.jpg" />
               </div>
@@ -147,9 +154,17 @@
                 <span class="time">11:01 PM | September 15</span>
               </div>
             </div>`
-          );
-        }
-      });
+            );
+          }
+        });
+      }
+
+      function sendMsg() {
+        // 1. input에 있는 value를 가져와야 함
+        let msg = $("input").val();
+        socket.emit("sendMsg", msg);
+      }
+
       //emit, on
     </script>
   </body>
